@@ -1,4 +1,6 @@
 import request from '@/utils/request'
+// 只有在vue组件文件中才能用this.$store 在js中没有这个this
+import store from '@/store'
 /**
  * 获取短信验证码
  * @param {number} mobile
@@ -22,6 +24,19 @@ export const login = ({ mobile, code }) => {
     data: {
       mobile,
       code
+    }
+  })
+}
+
+/**
+ * 获取用户个人信息
+ * @returns
+ */
+export const getUserInfo = () => {
+  return request({
+    url: 'user',
+    header: {
+      Authorization: 'Bearer ' + store.state.user.token
     }
   })
 }

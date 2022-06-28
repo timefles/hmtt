@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar title="登录">
+    <van-nav-bar title="登录" @click-left="$router.back()">
       <!-- 简单写法,vue2可以用,vue3不行要报错,已废弃 -->
       <van-icon name="cross" slot="left" />
       <!-- 标准写法  最新 -->
@@ -75,7 +75,9 @@ export default {
       try {
         const res = await login(values)
         console.log(res)
+        // token有效期2个小时  两种思路 让用户重新登录
         this.$store.commit('setUser', res.data.data)
+        this.$router.push({ name: 'my' }) // 登录页面跳转我的页面
       } catch (err) {
         console.log(err)
       }
